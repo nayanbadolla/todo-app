@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ToDo App</title>
+    <style>
+        div {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <h1>Welcome to ToDo App</h1>
+        
+        <input type="text" id="insert">
+        <button class="insert">Add ToDo</button>
+        <div class="add"></div>
+        <br><br>
+
+        <label id="hide-complete">
+            Hide Completed<input type="checkbox">
+        </label>
+
+        <button class="display">Display ToDo List</button>
+        <select id="drop-down">
+            <option value="lastCreated" class="drop1">Sort by last created</option>
+            <option value="alphabetically" class="drop2">Sort alphabetically</option>
+        </select>
+        <div class="print"></div>
+        <br>
+
+        <br><br>
+        
+        <input type="text" id="search">
+        <!-- <button class="search">Search ToDo</button> -->
+        <div class="result"></div>
+        <br><br>
+        
+        <button id="delete">Delete ToDo</button>
+        <br><br>
+
+        <form action="#" id="form">
+            <input type="text" id="firstName" placeholder="First Name" name="firstName">
+            <button id="submit-btn">Submit</button>
+        </form>
+
+        <div class="details">
+            <h4>Details:</h4>
+        </div>
+
+    </div>
+
+    <script src="todo.js"></script>
+
+</body>
+</html>
