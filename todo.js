@@ -1,6 +1,6 @@
 let todos=[{
     title:'Chennai',
-    state:'Complete'
+    state:'Inomplete'
 }, {
     title:'Office',
     state:'Ongoing'
@@ -8,9 +8,12 @@ let todos=[{
     title:'Web Dev',
     state:'Ongoing'
 }, {
+    title:'JS',
+    state:'Ongoing'
+}, {
     title:'South Africa',
-    state:'Incomplete'
-}, ]
+    state:'Complete'
+} ]
 
 let insert=document.querySelector('.print')
 
@@ -25,25 +28,25 @@ let display=function () {
     })
 }
 
-// let insert=document.querySelector('.check')
-
-document.querySelector('#insert').addEventListener('input', function(e) {
+document.querySelector('#insert').addEventListener('change', function(e) {
     input=e.target.value
     todos.push({
         title:input,
         state:'Incomplete'
     })
-})
-
-console.log(input)
-
-document.querySelector('.insert').addEventListener('click', function () {
     let add=document.querySelector('.add')
     let list=document.createElement('li')
     list.textContent=`${input}`
     add.appendChild(list)
-    // add.innerHTML=input.value
 })
+
+// document.querySelector('.insert').addEventListener('click', function () {
+//     let add=document.querySelector('.add')
+//     let list=document.createElement('li')
+//     list.textContent=`${input}`
+//     add.appendChild(list)
+//     // add.innerHTML=input.value
+// })
 
 document.querySelector('#hide-complete').addEventListener('change', function(e) {
     insert.innerHTML=''
@@ -99,14 +102,7 @@ document.querySelector('#search').addEventListener('input', function (e) {
     // })
 })
 
-document.querySelector('.search').addEventListener('click', function() {
-    result.innerHTML=''
-    search.forEach(function (todo) {
-        let p=document.createElement('p')
-        p.textContent=`${todo.title} - ${todo.state}`
-        result.appendChild(p)
-    })
-})
+// document.querySelector('.search').add
 
 document.querySelector('#delete').addEventListener('click', function () {
     document.querySelectorAll('.add').forEach(function (todo) {
@@ -117,31 +113,4 @@ document.querySelector('#delete').addEventListener('click', function () {
         todo.style.display='none'
         // todo.remove()
     })
-})
-
-
-
-let forms=[{
-    firstName:''
-}]
-
-document.querySelector('#form').addEventListener('submit', function (e) {
-    e.preventDefault()
-    // let firstName=e.target.elements.firstName.value
-    forms.push({
-        firstName:e.target.elements.firstName.value
-    })
-    // todos.push({
-    //     title:e.target.elements.firstName.value,
-    //     state:'Incomplete'
-    // })
-    forms.forEach(function(form) {
-        let details=document.querySelector('.details')
-        let info=document.createElement('p')
-        info.textContent=`First Name: ${form.firstName}`
-        // info.textContent=`First Name: ${todo.title}`
-        // info.textContent=`First Name: ${firstName}`
-        details.appendChild(info)
-    })
-    e.target.elements.firstName.value=''
 })
