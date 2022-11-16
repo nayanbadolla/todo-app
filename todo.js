@@ -1,43 +1,62 @@
-let todos=[{
-    title:'Chennai',
-    state:'Inomplete'
-}, {
-    title:'Office',
-    state:'Ongoing'
-}, {
-    title:'Web Dev',
-    state:'Ongoing'
-}, {
-    title:'JS',
-    state:'Ongoing'
-}, {
-    title:'South Africa',
-    state:'Complete'
-} ]
+// localStorage.clear()
+
+// let todos=[{
+//     title:'Chennai',
+//     state:'Incomplete'
+// }, {
+//     title:'Office',
+//     state:'Ongoing'
+// }, {
+//     title:'Web Dev',
+//     state:'Ongoing'
+// }, {
+//     title:'JS',
+//     state:'Ongoing'
+// }, {
+//     title:'South Africa',
+//     state:'Complete'
+// }]
+
+let todos
 
 let insert=document.querySelector('.print')
 
-let input
-
 let display=function () {
-    todos.forEach(function (todo) {
-    let list=document.createElement('li')
-    list.textContent=`${todo.title} - ${todo.state}`
-    insert.appendChild(list)
-    // insert.innerHTML=`${todo.title} - ${todo.state}`
-    })
+    todos=localStorage.getItem('todos')
+    todos=JSON.parse(todos)
+    console.log(todos)
+    console.log(JSON.stringify(todos))
+
+    if(todos!==null) {
+        insert.innerHTML=""
+        todos.forEach(function (todo) {
+            let list=document.createElement('p')
+            list.textContent=`${todo.title} - ${todo.state}`
+            insert.appendChild(list)
+            // insert.innerHTML=`${todo.title} - ${todo.state}`
+        })
+    }
+    else {
+        insert.innerText='No ToDo available'
+        todos=[]
+        localStorage.setItem('todos',JSON.stringify(todos))
+    }
 }
 
+display()
+
 document.querySelector('#insert').addEventListener('change', function(e) {
-    input=e.target.value
+    let input=e.target.value
     todos.push({
-        title:input,
-        state:'Incomplete'
+        title: input,
+        state: 'Incomplete'
     })
-    let add=document.querySelector('.add')
-    let list=document.createElement('li')
-    list.textContent=`${input}`
-    add.appendChild(list)
+    localStorage.setItem('todos',JSON.stringify(todos))
+    display()
+    // let add=document.querySelector('.add')
+    // let list=document.createElement('p')
+    // list.textContent=`${input}`
+    // add.appendChild(list)
 })
 
 // document.querySelector('.insert').addEventListener('click', function () {
@@ -45,7 +64,6 @@ document.querySelector('#insert').addEventListener('change', function(e) {
 //     let list=document.createElement('li')
 //     list.textContent=`${input}`
 //     add.appendChild(list)
-//     // add.innerHTML=input.value
 // })
 
 document.querySelector('#hide-complete').addEventListener('change', function(e) {
@@ -58,7 +76,7 @@ document.querySelector('#hide-complete').addEventListener('change', function(e) 
             }
         })
         hideComplete.forEach(function (todo) {
-            let list=document.createElement('li')
+            let list=document.createElement('p')
             list.textContent=`${todo.title} - ${todo.state}`
             insert.appendChild(list)
             // insert.innerHTML=`${todo.title} - ${todo.state}`
@@ -70,29 +88,31 @@ document.querySelector('#hide-complete').addEventListener('change', function(e) 
     }
 })
 
-document.querySelector('.display').addEventListener('click', function () {
-    insert.innerHTML=''
-    display()
-})
+// document.querySelector('.display').addEventListener('click', function () {
+//     insert.innerHTML=''
+//     display()
+// })
 
 let search={
     value:''
 }
 
-let result=document.querySelector('.result')
+// let result=document.querySelector('.result')
 
-document.querySelector('#search').addEventListener('input', function (e) {
+document.querySelector('#search').addEventListener('input', function (e) { 
+    insert.innerHTML=''
     search.value=e.target.value
     search=todos.filter(function (todo) {
         return todo.title.toLowerCase().includes(search.value.toLowerCase())
     })
-    console.log(search.value)
-    console.log(search)
-    result.innerHTML=''
+    // console.log(search.value)
+    // console.log(search)
+    // result.innerHTML=''
     search.forEach(function (todo) {
         let p=document.createElement('p')
         p.textContent=`${todo.title} - ${todo.state}`
-        result.appendChild(p)
+        insert.appendChild(p)
+        // display()
     })
     // result.forEach(function (todo) {
     //     let search=document.querySelector('.result')
@@ -105,12 +125,9 @@ document.querySelector('#search').addEventListener('input', function (e) {
 // document.querySelector('.search').add
 
 document.querySelector('#delete').addEventListener('click', function () {
-    document.querySelectorAll('.add').forEach(function (todo) {
-        // todo.remove()
-        todo.style.display='none'
-    })
-    document.querySelectorAll('.print').forEach(function (todo) {
-        todo.style.display='none'
-        // todo.remove()
-    })
+    localStorage.removeItem('todos')
+    todos=[]
+    // localStorage.clear()
+    // insert.innerHTML=""
+    display()
 })
